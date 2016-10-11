@@ -1,5 +1,10 @@
 {
   "name": "fur/bright/api",
   "type": "library",
-  "description": "Bright API"
+  "description": "Bright API",
+  "autoload": {
+    "psr-0": {
+      "fur\\bright\\": "fur/bright"
+    }
+  }
 }
