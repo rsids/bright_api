@@ -4,7 +4,7 @@
   "description": "Bright API",
   "autoload": {
     "psr-0": {
-      "fur\\bright\\": "."
+      "fur\\bright\\": "src"
     }
   }
 }
