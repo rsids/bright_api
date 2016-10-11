@@ -9,7 +9,7 @@
 namespace fur\bright\exceptions;
 
 
-class ParameterException extends \Exception
+class ParameterException extends GenericException
 {
     const INTEGER_EXCEPTION = 2002;
     const STRING_EXCEPTION = 2003;

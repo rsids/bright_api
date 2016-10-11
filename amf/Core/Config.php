@@ -102,7 +102,7 @@ class Amfphp_Core_Config {
         $this->sharedConfig = array();
         $this->disabledPlugins = array();
         //disable logging and error handler by default
-        $this->disabledPlugins[] = 'AmfphpLogger';
+//        $this->disabledPlugins[] = 'AmfphpLogger';
 //         $this->disabledPlugins[] = 'AmfphpErrorHandler';
         
         

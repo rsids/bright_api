@@ -8,8 +8,7 @@ namespace fur\bright\entities;
  * @subpackage objects
  */
 
-require_once('Bright/services/objects/OAdministratorObject.php');
-// require_once('Bright/objects/ArrayCollection.php');
+require_once(__DIR__ . '/OAdministratorObject.php');
 
 class ObjectInitializer {
 	//Stub class for amfphp

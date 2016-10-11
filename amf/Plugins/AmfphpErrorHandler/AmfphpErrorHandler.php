@@ -8,6 +8,7 @@
  * with this package in the file license.txt.
  * @package Amfphp_Plugins_ErrorHandler
  */
+use fur\bright\exceptions\GenericException;
 
 /**
  * sets a custom error handler to catch notices and such and transform them to exceptions.
@@ -31,5 +32,5 @@ class AmfphpErrorHandler {
 
 function custom_warning_handler($errno, $errstr, $errfile, $errline, $errcontext) {
 	error_log("$errstr\n<br>file:  $errfile \n<br>line: $errline \n<br>context: " . print_r($errcontext, true));
-    throw new Exception("$errstr\n<br>file:  $errfile \n<br>line: $errline \n<br>context: " . print_r($errcontext, true), Exceptions::GENERAL_EXCEPTION);// . \n<br>file:  $errfile \n<br>line: $errline \n<br>context: " . print_r($errcontext, true), $errno);
+    throw new GenericException("$errstr\n<br>file:  $errfile \n<br>line: $errline \n<br>context: " . print_r($errcontext, true), GenericException::GENERAL_EXCEPTION);// . \n<br>file:  $errfile \n<br>line: $errline \n<br>context: " . print_r($errcontext, true), $errno);
 }

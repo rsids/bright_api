@@ -10,16 +10,16 @@
  */
 
 /**
-*  includes
-*  */
-require_once(dirname(__FILE__) . '/ClassLoader.php');
-include_once(dirname(__FILE__) . '/../Bright/Bright.php');
+ *  includes
+ *  */
+require_once(__DIR__ . '/ClassLoader.php');
 ///bright/library/Bright/services/objects/ObjectInitializer.php
 $servicesPath = __DIR__ . '/../api/';
-include_once(__DIR__ . '../entities/ObjectInitializer.php');
+include_once(__DIR__ . '/../entities/ObjectInitializer.php');
 $cfg = new Amfphp_Core_Config();
-$cfg -> serviceFolderPaths[] = $servicesPath;
-$cfg -> checkArgumentCount = true;
+$cfg->serviceFolderPaths[] = $servicesPath;
+$cfg->serviceNames2ClassFindInfo['config.Config'] = (object)array('absolutePath' => $servicesPath . 'config/Config.php');
+$cfg->checkArgumentCount = true;
 
 
 restore_error_handler();
@@ -30,10 +30,10 @@ restore_exception_handler();
 // 	ini_set('track_errors', '1'); // creates php error variable
 // 	error_reporting(E_ALL | E_STRICT);
 // } else {
-	ini_set('display_errors', 0); // don't display errors in the HTML
-	ini_set('track_errors', 1); // creates php error variable
-	ini_set('log_errors', 1); // creates php error variable
-	error_reporting(E_ALL | E_STRICT);
+ini_set('display_errors', 0); // don't display errors in the HTML
+ini_set('track_errors', 1); // creates php error variable
+ini_set('log_errors', 1); // creates php error variable
+error_reporting(E_ALL | E_STRICT);
 // }
 /* 
  * main entry point (gateway) for service calls. instanciates the gateway class and uses it to handle the call.
