@@ -18,7 +18,7 @@
  *
  */
 
-define( 'AMFPHP_ROOTPATH', dirname(__FILE__) . DIRECTORY_SEPARATOR);
+define( 'AMFPHP_ROOTPATH', __DIR__ . DIRECTORY_SEPARATOR);
 
 //core/common
 require_once AMFPHP_ROOTPATH . 'Core/Common/ClassFindInfo.php';

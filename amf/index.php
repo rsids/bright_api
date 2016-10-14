@@ -18,10 +18,8 @@ $servicesPath = __DIR__ . '/../src/api/';
 include_once(__DIR__ . '/../src/entities/ObjectInitializer.php');
 $cfg = new Amfphp_Core_Config();
 $cfg->serviceFolderPaths[] = $servicesPath;
-$cfg->serviceNames2ClassFindInfo['config.Config'] = (object)array('absolutePath' => $servicesPath . 'config/Config.php');
-$cfg->serviceNames2ClassFindInfo['administrator.Administrator'] = (object)array('absolutePath' => $servicesPath . 'administrator/Administrator.php');
+$cfg->serviceNames2ClassFindInfo = generateServiceNames($servicesPath);
 $cfg->checkArgumentCount = true;
-
 
 restore_error_handler();
 restore_exception_handler();
@@ -52,3 +50,22 @@ $gateway = Amfphp_Core_HttpRequestGatewayFactory::createGateway($cfg);
 // chdir($servicesPath);
 $gateway->service();
 $gateway->output();
+
+
+function generateServiceNames($path) {
+    $allFiles = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
+    $phpFiles = new RegexIterator($allFiles, '/\.php$/');
+    $serviceNames = array();
+    foreach ($phpFiles as $phpFile) {
+
+        $parts = explode(DIRECTORY_SEPARATOR, $phpFile);
+        $className = array_slice($parts, -2);
+        $className[count($className) -1] = substr($className[count($className) -1],0, -4);
+        $serviceNames[join('.', $className)] = (object) array(
+            'absolutePath' => $phpFile->__toString(),
+            'className' => '\\fur\\bright\\api\\' . join('\\', $className)
+        );
+    }
+
+    return $serviceNames;
+}
