@@ -14,11 +14,12 @@
  *  */
 require_once(__DIR__ . '/ClassLoader.php');
 ///bright/library/Bright/services/objects/ObjectInitializer.php
-$servicesPath = __DIR__ . '/../api/';
-include_once(__DIR__ . '/../entities/ObjectInitializer.php');
+$servicesPath = __DIR__ . '/../src/api/';
+include_once(__DIR__ . '/../src/entities/ObjectInitializer.php');
 $cfg = new Amfphp_Core_Config();
 $cfg->serviceFolderPaths[] = $servicesPath;
 $cfg->serviceNames2ClassFindInfo['config.Config'] = (object)array('absolutePath' => $servicesPath . 'config/Config.php');
+$cfg->serviceNames2ClassFindInfo['administrator.Administrator'] = (object)array('absolutePath' => $servicesPath . 'administrator/Administrator.php');
 $cfg->checkArgumentCount = true;
 
 

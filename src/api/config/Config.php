@@ -36,10 +36,10 @@ class Config {
 
 	/**
 	 * Gets all the required settings for Bright CMS
-	 * @return \StdClass An object with the settings
+	 * @return \stdClass An object with the settings
 	 */
 	public function getCMSConfig() {
-		$retObj = new \StdClass();
+		$retObj = new \stdClass();
 		$retObj -> filesettings = $this -> getFileSettings();
 		$retObj -> filesettings -> filepath = '';
 		$retObj -> general = (object)array('sitename' => SITENAME,
@@ -82,7 +82,7 @@ class Config {
 //
 //		$languages = explode(',', AVAILABLELANG);
 //
-//		$return = new \StdClass();
+//		$return = new \stdClass();
 //		foreach($languages as $lang) {
 //			$return -> {$lang} = array();
 //			foreach($arr as $field) {
@@ -117,10 +117,10 @@ class Config {
 	 * <li>filepath: The path of the uploadfolder</li>
 	 * <li>uploadpath: The url of the uploadscript</li>
 	 * <li>uploadfolder: The foldername (relative to the documentroot) of the uploadfolder</li>
-	 * @return \StdClass An object with the settings
+	 * @return \stdClass An object with the settings
 	 */
 	public function getFileSettings() {
-		$retObj = new \StdClass();
+		$retObj = new \stdClass();
 		$retObj -> fileurl = BASEURL . UPLOADFOLDER;
 		$retObj -> baseurl = BASEURL;
 		$retObj -> filepath = BASEPATH . UPLOADFOLDER;

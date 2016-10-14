@@ -1,0 +1,14 @@
+<?php
+/**
+ * ###label###View class
+ * @package site
+ * @subpackage views
+ */
+class ###label###View extends BaseView {
+	
+	###properties###
+	
+	function ###label###View($pageData) {
+		parent::__construct($pageData);
+	}
+}

@@ -1,0 +1,12 @@
+Dear ###username###,
+
+Your account for ###sitename### is ready.
+Goto ###baseurl### and login with the following credentials:
+username: ###email###
+password: ###password###
+
+Regards,
+
+###sitename###
+
+note: This is an automated e-mail, do not reply

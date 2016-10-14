@@ -32,5 +32,5 @@ class AmfphpErrorHandler {
 
 function custom_warning_handler($errno, $errstr, $errfile, $errline, $errcontext) {
 	error_log("$errstr\n<br>file:  $errfile \n<br>line: $errline \n<br>context: " . print_r($errcontext, true));
-    throw new GenericException("$errstr\n<br>file:  $errfile \n<br>line: $errline \n<br>context: " . print_r($errcontext, true), GenericException::GENERAL_EXCEPTION);// . \n<br>file:  $errfile \n<br>line: $errline \n<br>context: " . print_r($errcontext, true), $errno);
+    throw new GenericException("$errstr\n<br>file:  $errfile \n<br>line: $errline \n<br>context: " . print_r($errcontext, true), GenericException::GENERIC_EXCEPTION);// . \n<br>file:  $errfile \n<br>line: $errline \n<br>context: " . print_r($errcontext, true), $errno);
 }
