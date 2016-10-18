@@ -13,5 +13,6 @@ require_once(__DIR__ . '/OAdministratorObject.php');
 class ObjectInitializer {
 	//Stub class for amfphp
 }
-if(!isset($_SESSION))
-	session_start();
+if(!isset($_SESSION)) {
+    session_start();
+}

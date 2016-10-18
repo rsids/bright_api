@@ -3,7 +3,7 @@ namespace fur\bright\api\tree;
 
 use fur\bright\api\cache\Cache;
 use fur\bright\api\page\Page;
-use fur\bright\api\User;
+use fur\bright\api\user\User;
 use fur\bright\core\Connection;
 use fur\bright\entities\OPage;
 use fur\bright\entities\OTreeNode;
@@ -440,7 +440,6 @@ ORDER BY `index`";
             } else {
 
             }
-
         }
 
         $retObj = new \stdClass();
@@ -822,7 +821,7 @@ ORDER BY `index`";
      * @return array|int The new treenode
      * @throws \Exception
      */
-    public function setPage(OPage $page, $parentId, $index, $returnId = false)
+    public function setPage($page, $parentId, $index, $returnId = false)
     {
         if (!$this->IS_AUTH)
             throw $this->throwException(AuthenticationException::NO_USER_AUTH);
@@ -1190,8 +1189,9 @@ ORDER BY `index`";
      */
     public function generateSitemap()
     {
-        if (SPHIDERAVAILABLE || !GENERATESITEMAP)
+        if ((defined('SPHIDERAVAILABLE') && SPHIDERAVAILABLE) || !GENERATESITEMAP) {
             return;
+        }
 
         $root = $this->getRoot();
 

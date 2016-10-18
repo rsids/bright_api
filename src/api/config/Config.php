@@ -1,5 +1,7 @@
 <?php
 namespace  fur\bright\api\config;
+use fur\bright\Permissions;
+
 /**
  * Use this file to get settings from the inifile
  * version history:
@@ -31,7 +33,7 @@ class Config {
 	public static $calendarColumns = array('coloredlabel','title','icon','calendarId','location','label', 'modificationdate','publicationdate','expirationdate','enabled','createdby','modifiedby');
 
 	public function Config() {
-//		$this -> _perm = new Permissions();
+		$this -> _perm = new Permissions();
 	}
 
 	/**
@@ -140,7 +142,6 @@ class Config {
 				}
 			}
 		}
-//		Connection::getInstance() -> addTolog($retObj);
 		return $retObj;
 	}
 }

@@ -208,8 +208,6 @@ class Maps extends Permissions  {
 		$_SESSION['getMarkersAndPolys_lastUpdate'] = time();
 
 		return $result;
-
-
 	}
 	
 	/**
@@ -359,10 +357,9 @@ class Maps extends Permissions  {
      * @return OMarker The marker
      * @throws \Exception
      */
-	public function setFullMarker(OMarker $marker) {
+	public function setFullMarker($marker) {
 		$page = new Page();
 
-		
 		// Store marker specific fields
 		$msettings = new OMarker();
 		
@@ -382,8 +379,7 @@ class Maps extends Permissions  {
 		if($marker -> pageId == 0) {
 			$marker -> pageId = $p -> pageId;
 		}
-		
-		
+
 		BrightUtils::forceDouble($marker, $dbls);
 		BrightUtils::forceInt($marker, $ints);
 		BrightUtils::escape($marker, $strings);
@@ -431,7 +427,7 @@ class Maps extends Permissions  {
      * @param OPoly $poly
      * @return OPoly
      */
-	public function setFullPoly(OPoly $poly) {
+	public function setFullPoly($poly) {
 		$page = new Page();
 		$p = $page -> setPage($poly, false, false);
 		if($poly -> pageId == 0) {
@@ -511,7 +507,7 @@ class Maps extends Permissions  {
      * @see objects.OPoly
      * @since 0.3 - 17 dec 2010
      */
-	public function setPoly(OPoly $poly) {
+	public function setPoly($poly) {
 		if(!$this -> IS_AUTH)
 			throw $this -> throwException(AuthenticationException::NO_USER_AUTH);
 
@@ -606,7 +602,7 @@ class Maps extends Permissions  {
 
 	}
 
-	private function _updatePoly(OPoly $poly) {
+	private function _updatePoly($poly) {
 		$layer = (int) $poly -> layer;
 		if($poly -> layer == -1) {
 			$layer = '(SELECT MAX(`layerId`) FROM `gm_layers`)';
@@ -627,25 +623,5 @@ class Maps extends Permissions  {
 		$this -> _conn -> updateRow($sql);
 		return  (int)$poly -> polyId;
 	}
-
-	/**
-	 * Colorizes an image
-	 * @param resource $im
-	 * @param int $r
-	 * @param int $g
-	 * @param int $b
-	 */
-	private function _colorize($im,$r,$g,$b) {
-		$height = imagesy($im);
-	    $width = imagesx($im);
-	    for($x=0; $x<$width; $x++){
-	        for($y=0; $y<$height; $y++){
-	            $old = imageColorAt($im, $x, $y);
-   				$a = ($old >> 24) & 0xFF;
-	            imagesetpixel($im, $x, $y,imagecolorallocatealpha($im, $r, $g, $b, $a));
-	        }
-	    }
-	}
-
 
 }

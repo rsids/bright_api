@@ -358,7 +358,7 @@ class Page extends Content  {
      * @return OPage The created or updated page
      * @throws \Exception
      */
-	public function setPage(OPage $page, $returnAll = true, $executeHook = true) {
+	public function setPage($page, $returnAll = true, $executeHook = true) {
 		if(!$this -> IS_AUTH)
 			throw $this -> throwException(AuthenticationException::NO_USER_AUTH);
 		$ph = null;
@@ -533,7 +533,7 @@ class Page extends Content  {
 	 * @param OPage $page The page to create
 	 * @return OPage The created page
 	 */
-	private function _createPage(OPage $page) {
+	private function _createPage($page) {
 		$ap = ($page -> alwayspublished) ? 1 : 0;
 		$sn = ($page -> showinnavigation) ? 1 : 0;
 		
@@ -566,7 +566,7 @@ class Page extends Content  {
 	 * @param OPage page The page to update
 	 * @return OPage The updated page
 	 */
-	private function _updatePage(OPage $page) {
+	private function _updatePage($page) {
 
 		$ap = ($page -> alwayspublished) ? 1 : 0;
 		$sn = ($page -> showinnavigation) ? 1 : 0;

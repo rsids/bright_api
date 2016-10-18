@@ -354,7 +354,7 @@ class Calendar extends Content
      * @param bool $reverse Reverses the result set, used to get the last n results of a set. Note: the resultset will NOT be reversed
      * @param array $additionalFilters An array of additional filters, each filter is an array containing a field and a value, these filters are checked against the calendarcontent table
      * @param bool $enabledOnly When true, only events which are 'enabled' are returned
-     * @throws Exception
+     * @throws \Exception
      * @return null|\stdClass
      */
     public function getEventsByDateRange($start = -1, $end = -1, $limit = 0, $offset = 0, $countResults = false, $reverse = false, $additionalFilters = null, $enabledOnly = true)
@@ -479,7 +479,7 @@ class Calendar extends Content
      * @param null $filter
      * @param string $orderfield
      * @param string $order
-     * @throws Exception
+     * @throws \Exception
      * @return mixed|object
      */
     public function getEventsByIdRange($start = 0, $limit = 20, $filter = null, $orderfield = 'calendarId', $order = 'DESC')
@@ -526,9 +526,9 @@ class Calendar extends Content
 
     /**
      * Gets an array of events based on their ID
-     * @param $ids An array of id's
+     * @param array $ids An array of id's
      * @param bool $includeContent includeContent Whether or not the content of the event should be included
-     * @throws Exception
+     * @throws \Exception
      * @return array an array of OCalendarEvents
      */
     public function getEventsByIds($ids, $includeContent = false)
@@ -591,9 +591,9 @@ class Calendar extends Content
     /**
      * Gets a page of type 'event'
      * @param $calendarId
-     * @throws Exception
+     * @throws \Exception
      * @internal param \calendarId $int The id of the page / event
-     * @return CalendarEvent A CalendarEvent
+     * @return OCalendarEvent A CalendarEvent
      */
     public function getEvent($calendarId)
     {
@@ -633,7 +633,7 @@ class Calendar extends Content
     /**
      * Gets an event by it's label
      * @param $label
-     * @throws Exception
+     * @throws \Exception
      * @internal param \label $string The label of the event
      * @return event The event
      */
@@ -671,7 +671,7 @@ class Calendar extends Content
      * @param OCalendarEvent $event event The event to create or update
      * @param boolean $executeHook
      * @param boolean $updateContent When false, oContent is left untouched
-     * @throws Exception
+     * @throws \Exception
      * @return bool
      */
     public function setEvent(OCalendarEvent $event, $executeHook = true, $updateContent = true)
@@ -689,7 +689,7 @@ class Calendar extends Content
 
         // Execute hook if present
         if (class_exists('CalendarHook') && $executeHook) {
-            $ch = new CalendarHook();
+            $ch = new \CalendarHook();
             if (method_exists($ch, 'preSetEvent'))
                 $event = $ch->preSetEvent($event);
         }
@@ -1067,7 +1067,7 @@ class Calendar extends Content
     /**
      * Deletes an event / Multiple events
      * @param array $ids An array of pageId's
-     * @throws Exception
+     * @throws \Exception
      * @return bool
      * @since 1.1 - 9 dec 2010
      */

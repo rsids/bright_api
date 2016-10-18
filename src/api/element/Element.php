@@ -198,7 +198,7 @@ class Element extends Permissions  {
      * @return \stdClass An object containing element, the just saved element and elements, an array of all elements
      * @throws \Exception
      */
-	public function setElement(OPage $element, $returnall = true) {
+	public function setElement($element, $returnall = true) {
 		if(!$this -> IS_AUTH) {
             throw $this->throwException(AuthenticationException::NO_USER_AUTH);
         }

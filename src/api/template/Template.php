@@ -422,7 +422,7 @@ FUR
      * @return array An array of templatedefinitions
      * @throws \Exception
      */
-	public function setTemplate(OTemplate $template, $forceSaveAs = false) {
+	public function setTemplate($template, $forceSaveAs = false) {
 		if(!$this -> IS_AUTH) {
             throw $this->throwException(AuthenticationException::NO_USER_AUTH);
         }
@@ -473,7 +473,7 @@ FUR
 		return $definition;
 	}
 	
-	private function _createTemplate(OTemplate $template) {
+	private function _createTemplate($template) {
 		$template -> itemtype = trim($template -> itemtype);
 		
 		if($template -> itemtype == '')
@@ -504,7 +504,7 @@ FUR
 		$this -> _setFields($template);
 	}
 	
-	private function _updateTemplate(OTemplate $template) {
+	private function _updateTemplate($template) {
 		$template -> itemtype = trim($template -> itemtype);
 		
 		if($template -> itemtype == '')

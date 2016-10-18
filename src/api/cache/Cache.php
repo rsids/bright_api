@@ -1,5 +1,6 @@
 <?php
 namespace fur\bright\api\cache;
+use fur\bright\core\Constants;
 use fur\bright\Permissions;
 
 /**
@@ -25,7 +26,7 @@ class Cache extends Permissions  {
 		parent::__construct();
 
 		$this -> _forceCache = $forceCache;
-		if(CACHE_MODE == BaseConstants::CACHE_MODE_APC) {
+		if(CACHE_MODE == Constants::CACHE_MODE_APC) {
 			$this -> cache = new APCCache();
 
 		} else{
@@ -60,10 +61,12 @@ class Cache extends Permissions  {
 	public function deleteCache($name) {
 		return $this -> cache -> deleteCache($name);
 	}
-	
-	/**
-	 * Deletes all the cached files where Page '$label' is in the path<br/>
-	 */
+
+    /**
+     * Deletes all the cached files where Page '$label' is in the path<br/>
+     * @param $label
+     * @throws \Exception
+     */
 	public function deleteCacheByLabel($label) {
 		if(count(explode('/', $label)) > 1 || count(explode('\\', $label)) > 1)
 			throw $this -> throwException(2001);
@@ -77,7 +80,6 @@ class Cache extends Permissions  {
 	 * @since 2.1
 	 * @param string $prefix The prefix
 	 * @throws \Exception
-	 * @return void
 	 */
 	public function deleteCacheByPrefix($prefix) {		
 		$prefix = filter_var($prefix, FILTER_SANITIZE_STRING);

@@ -147,7 +147,7 @@ class Serve {
 				return;
 			}
 				
-			$bright_viewclass = $bright_viewData -> page -> itemLabel . 'View';
+			$bright_viewclass = APP_NAMESPACE . 'views\\' . $bright_viewData -> page -> itemLabel . 'View';
 			$bright_view = new $bright_viewclass($bright_viewData);
 			$bright_output = $bright_view -> output();
 			

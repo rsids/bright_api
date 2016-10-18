@@ -101,7 +101,7 @@ class UserGroup extends Permissions
      * @param OUserObject $user
      * @return array
      */
-    public function getGroupsForUser(OUserObject $user)
+    public function getGroupsForUser($user)
     {
         $sql = 'SELECT uu.groupId FROM userusergroups uu WHERE uu.userId=' . (int)$user->userId;
         $result = $this->_conn->getFields($sql, 'int');
@@ -112,7 +112,7 @@ class UserGroup extends Permissions
      * Sets the groups for the given user
      * @param OUserObject $user
      */
-    public function setGroupsForUser(OUserObject $user)
+    public function setGroupsForUser($user)
     {
 
         $c = new Cache();

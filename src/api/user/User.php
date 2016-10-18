@@ -239,7 +239,7 @@ class User extends Content
      * @throws \Exception
      * @return int The new id of the user
      */
-    public function registerUser(OUserObject $user, $activationRequired, $approvalRequired, $mailTemplate = null)
+    public function registerUser($user, $activationRequired, $approvalRequired, $mailTemplate = null)
     {
         throw new \Exception(GenericException::NOT_IMPLEMENTED);
 //		if($this -> _checkForExistance($user -> email))
@@ -427,7 +427,7 @@ class User extends Content
      * @throws \Exception
      * @return array An array of all the users
      */
-    public function deleteUser(OUserObject $user)
+    public function deleteUser($user)
     {
         if (!$this->IS_AUTH)
             throw $this->throwException(AuthenticationException::NO_USER_AUTH);
@@ -464,7 +464,6 @@ class User extends Content
 
             }
         }
-
 
         $additionalfieldsql = '';
         $joins = array('RIGHT JOIN user u ON uug.userId = u.userId', 'LEFT JOIN usergroups `ug` ON ug.groupId = `uug`.groupId');
@@ -508,7 +507,7 @@ class User extends Content
      * @return array An array of all the users
      * @throws \Exception
      */
-    public function setUser(OUserObject $user, $returnAll = true)
+    public function setUser($user, $returnAll = true)
     {
         if (!$this->IS_AUTH)
             throw $this->throwException(AuthenticationException::NO_USER_AUTH);
@@ -930,7 +929,7 @@ class User extends Content
      * Generates a new password for an e-mail address
      * @param string $email The email address of the user to generate a new pass
      * @return string The newly generated password
-     * @throws Exception
+     * @throws \Exception
      */
     public function forgotPass($email)
     {
@@ -964,7 +963,7 @@ class User extends Content
      * @param boolean $updateActivated When false, the activated property is ignored
      * @return mixed
      */
-    public function updateUser(OUserObject $user, $updatePassword, $updateActivated = false)
+    public function updateUser($user, $updatePassword, $updateActivated = false)
     {
         $c = new Cache();
         $c->deleteCacheByPrefix('user');
@@ -1031,7 +1030,7 @@ class User extends Content
      * @return array An array of all the users
      * @throws \Exception
      */
-    private function _createUser(OUserObject $user, $sendMail = false, $password = '')
+    private function _createUser($user, $sendMail = false, $password = '')
     {
         $email = Connection::getInstance()->escape_string($user->email);
         $result = $this->conn->getRow("SELECT count(userId) as ids 
@@ -1114,7 +1113,7 @@ class User extends Content
      * @return int The id of the updated user, null on failure
      * @throws \Exception
      */
-    private function _updateUser(OUserObject $user, $updatePassword = true, $updateActivated = true)
+    private function _updateUser($user, $updatePassword = true, $updateActivated = true)
     {
         if (filter_var($user->email, FILTER_VALIDATE_EMAIL) === false)
             throw $this->throwException(ParameterException::EMAIL_EXCEPTION);

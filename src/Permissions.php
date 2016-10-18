@@ -314,7 +314,7 @@ class Permissions {
 	}
 	
 	public function throwException($id, $vars = null) {
-		Log::addTolog("Error $id ". print_r($vars, true)) ;
+		Log::addToLog("Error $id ". print_r($vars, true)) ;
 		if(array_key_exists($id, $this -> _exceptions)) {
 			$exc = $this -> _exceptions[$id];
 			if($vars) {

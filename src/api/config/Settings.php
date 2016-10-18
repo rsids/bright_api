@@ -150,10 +150,10 @@ class Settings extends Permissions
 
         $error = strip_tags($error);
 
-        Log::addTolog('-------------------------------------------');
-        Log::addTolog(date('r') . ':');
-        Log::addTolog($error);
-        Log::addTolog('-------------------------------------------');
+        Log::addToLog('-------------------------------------------');
+        Log::addToLog(date('r') . ':');
+        Log::addToLog($error);
+        Log::addToLog('-------------------------------------------');
         $mailer = new Mailer();
 
         $message = 'An error occurred at ' . date('r') . ' on ' . SITENAME . "\r\nThe stacktrace is:\r\n" . $error;

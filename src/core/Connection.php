@@ -22,7 +22,7 @@ class Connection
 {
 
     /**
-     * @staticvar Connection The instance of this class
+     * @static var Connection The instance of this class
      */
     static private $instance;
 
@@ -65,10 +65,6 @@ class Connection
         $this->db = DB_DATABASE;
         mysqli_select_db($this->connection, $this->db);
         mysqli_query($this->connection, 'SET NAMES utf8');
-
-        if (!is_dir(dirname(__FILE__) . '/../logs')) {
-            @mkdir(dirname(__FILE__) . '/../logs');
-        }
     }
 
     /**
@@ -123,8 +119,8 @@ class Connection
     /**
      * Performs the actual query
      * @param string $query The query to execute
-     * @throws Exception
-     * @return resource The result of the query
+     * @throws \Exception
+     * @return \mysqli_result The result of the query
      */
     private function performQuery($query)
     {
@@ -133,16 +129,17 @@ class Connection
         $result = mysqli_query($this->connection, $query);
         $e = microtime(true);
         if (BENCHMARK) {
-            $t = $e - $s;
-            $this->_benchmark($t, $query);
+//            $t = $e - $s;
+//            $this->_benchmark($t, $query);
         }
-        if ($this->logQueries)
-            $this->addTolog($query);
+        if ($this->logQueries) {
+            Log::addToLog($query);
+        }
 
         if (mysqli_errno($this->connection) > 0) {
-            $this->addTolog($query . "\n" . mysqli_error($this->connection));
+            Log::addToLog($query . "\n" . mysqli_error($this->connection));
             if (!LIVESERVER) {
-                throw new Exception("Error in query;\nQuery : " . $query . "\nError: " . mysqli_error($this->connection), 2000);
+                throw new \Exception("Error in query;\nQuery : " . $query . "\nError: " . mysqli_error($this->connection), 2000);
             }
         }
         return $result;
@@ -154,8 +151,11 @@ class Connection
      * @param string $objectType The type of objects to return.
      * @return object The row
      */
-    public function getRow($query, $objectType = 'stdClass')
+    public function getRow($query, $objectType = '\stdClass')
     {
+        if($objectType !== '\stdClass') {
+            $objectType = '\\fur\\bright\\entities\\' . $objectType;
+        }
         $result = $this->performQuery($query);
         $row = mysqli_fetch_object($result, $objectType);
         mysqli_free_result($result);
@@ -178,7 +178,7 @@ class Connection
             return null;
         try {
             settype($row[0], $objectType);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             echo "$objectType is not a valid type.\r\n<br/>Query: $query";
         }
         return $row[0];
@@ -209,8 +209,12 @@ class Connection
      * @param string $objectType The type of objects to return.
      * @return array The rows
      */
-    public function getRows($query, $objectType = 'stdClass')
+    public function getRows($query, $objectType = '\stdClass')
     {
+        if($objectType !== '\stdClass') {
+            $objectType = '\\fur\\bright\\entities\\' . $objectType;
+        }
+
         $result = $this->performQuery($query);
         $rows = array();
         while ($row = mysqli_fetch_object($result, $objectType)) {
@@ -259,7 +263,7 @@ class Connection
      */
     public function insertRow($query)
     {
-        $result = $this->performQuery($query);
+        $this->performQuery($query);
         $insertId = mysqli_insert_id($this->connection);
         return $insertId;
     }
@@ -271,7 +275,7 @@ class Connection
      */
     public function updateRow($query)
     {
-        $result = $this->performQuery($query);
+        $this->performQuery($query);
         return mysqli_affected_rows($this->connection) > 0;
     }
 
@@ -282,13 +286,13 @@ class Connection
      */
     public function deleteRow($query)
     {
-        $result = $this->performQuery($query);
+        $this->performQuery($query);
         return mysqli_affected_rows($this->connection);
     }
 
     /**
      * Changes id's with value 0 (zero) to null
-     * @param stdClass $item The item to insert in the database
+     * @param \stdClass $item The item to insert in the database
      * @param array $fields The fields to nullify
      */
     public function nullify(&$item, $fields)
@@ -304,7 +308,7 @@ class Connection
 
     /**
      * Escapes string values of an object
-     * @param stdClass $item The item to insert in the database
+     * @param \stdClass $item The item to insert in the database
      * @param array $fields The fields to escape
      */
     public function escape(&$item, $fields)
@@ -321,7 +325,6 @@ class Connection
 
         }
     }
-
 
     /**
      * Destructor

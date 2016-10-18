@@ -7,6 +7,7 @@ use fur\bright\api\page\Backup;
 use fur\bright\api\page\Page;
 use fur\bright\api\template\Template;
 use fur\bright\core\Connection;
+use fur\bright\entities\OContent;
 use fur\bright\entities\OPage;
 use fur\bright\exceptions\ParameterException;
 use fur\bright\Permissions;
@@ -28,7 +29,7 @@ use fur\bright\utils\Conversions;
 class Content extends Permissions  {
 
 	/**
-	 * @var stdClass Holds the Connection singleton
+	 * @var Connection Holds the Connection singleton
 	 */
 	protected $conn;
 
@@ -99,7 +100,7 @@ class Content extends Permissions  {
 	 * @param string $table The table with the content
 	 * @return OPage The page with content
 	 */
-	public function getContent(OPage $page, $tpllang = false, $table = 'content') {
+	public function getContent($page, $tpllang = false, $table = 'content') {
 		$pid = 'pageId';
 		switch($table) {
 			case 'content':
@@ -184,12 +185,14 @@ class Content extends Permissions  {
 		return $page;
 	}
 
-	/**
-	 * Inserts content into the database
-	 * @param OPage $page
-	 * @param string $table
-	 */
-	protected function setContent(OPage $page, $table = 'content') {
+    /**
+     * Inserts content into the database
+     * @param OPage $page
+     * @param string $table
+     * @return int
+     * @throws ParameterException
+     */
+	protected function setContent($page, $table = 'content') {
 		$pid = 'pageId';
 		switch($table) {
 			case 'content':

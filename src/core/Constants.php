@@ -12,7 +12,8 @@ namespace fur\bright\core;
  * @author Ids Klijnsma - Fur
  * @version 1.15
  */
-abstract class Constants {
+abstract class Constants
+{
 
     const CACHE_MODE_FILE = 1;
     const CACHE_MODE_APC = 2;
@@ -72,6 +73,7 @@ abstract class Constants {
     protected $LOCALIZABLE;
     protected $PHPTHUMBERRORIMAGE;
 
+    protected $APP_NAMESPACE = 'bright\\site\\';
     /**
      * When true, the new 'action' directory is used for registration & twitter
      * @since 1.3
@@ -92,7 +94,6 @@ abstract class Constants {
      * @since 1.10
      */
     protected $USETLD = true;
-
 
 
     /**
@@ -173,92 +174,97 @@ abstract class Constants {
 
     protected $CACHEPREFIX = 'bright';
 
-    function __construct() {
+    function __construct()
+    {
         // Do not change from here
 
-        $pathParts = explode(DIRECTORY_SEPARATOR, __DIR__);
-        $path = array_splice($pathParts, 0, count($pathParts)-4);
-        $this -> BASEPATH = implode(DIRECTORY_SEPARATOR, $path);
-        $this -> _fixSlashes(array('UPLOADFOLDER', 'CMSFOLDER', 'BASEURL', 'BASEPATH'));
+//        $pathParts = explode(DIRECTORY_SEPARATOR, __DIR__);
+//        $path = array_splice($pathParts, 0, count($pathParts)-4);
+//        $this -> BASEPATH = implode(DIRECTORY_SEPARATOR, $path);
+        $this->_fixSlashes(array('UPLOADFOLDER', 'CMSFOLDER', 'BASEURL', 'BASEPATH'));
 
-        if(defined('UPLOADFOLDER'))
+        set_include_path($this->BASEPATH . '/bright/site/views/' . PATH_SEPARATOR . get_include_path());
+
+        if (defined('UPLOADFOLDER'))
             return;
 
-        define('GATEWAY', $this -> BASEURL . 'bright/library/Amfphp/');
+        define('GATEWAY', $this->BASEURL . 'bright/library/Amfphp/');
 
-        define('UPLOADFOLDER', $this -> UPLOADFOLDER);
-        define('CMSFOLDER', $this -> CMSFOLDER);
+        define('UPLOADFOLDER', $this->UPLOADFOLDER);
+        define('CMSFOLDER', $this->CMSFOLDER);
 
-        define('SITENAME', $this -> SITENAME);
-        define('AVAILABLELANG', $this -> AVAILABLELANG);
-        define('USENEWTEMPLATE', $this -> USENEWTEMPLATE);
-        define('LOGO', $this -> LOGO);
+        define('SITENAME', $this->SITENAME);
+        define('AVAILABLELANG', $this->AVAILABLELANG);
+        define('USENEWTEMPLATE', $this->USENEWTEMPLATE);
+        define('LOGO', $this->LOGO);
 
-        define('ACTIVATIONPAGE', $this -> ACTIVATIONPAGE);
-        define('DEACTIVATIONPAGE', $this -> DEACTIVATIONPAGE);
-        define('ADDITIONALOVERVIEWFIELDS', $this -> ADDITIONALOVERVIEWFIELDS);
-        define('LOGINPAGE', $this -> LOGINPAGE);
+        define('ACTIVATIONPAGE', $this->ACTIVATIONPAGE);
+        define('DEACTIVATIONPAGE', $this->DEACTIVATIONPAGE);
+        define('ADDITIONALOVERVIEWFIELDS', $this->ADDITIONALOVERVIEWFIELDS);
+        define('LOGINPAGE', $this->LOGINPAGE);
 
-        define('DB_HOST', $this -> DB_HOST);
-        define('DB_USER', $this -> DB_USER);
-        define('DB_PASSWORD', $this -> DB_PASSWORD);
-        define('DB_DATABASE', $this -> DB_DATABASE);
+        define('DB_HOST', $this->DB_HOST);
+        define('DB_USER', $this->DB_USER);
+        define('DB_PASSWORD', $this->DB_PASSWORD);
+        define('DB_DATABASE', $this->DB_DATABASE);
 
-        define('LIVESERVER', $this -> LIVESERVER);
+        define('LIVESERVER', $this->LIVESERVER);
 
-        define('BASEURL', $this -> BASEURL);
-        define('BASEPATH', $this -> BASEPATH);
+        define('BASEURL', $this->BASEURL);
+        define('BASEPATH', $this->BASEPATH);
 
-        define('MAILINGFROM', $this -> MAILINGFROM);
-        define('MAILINGBOUNCE', $this -> MAILINGBOUNCE);
-        define('APPROVALMAIL', $this -> APPROVALMAIL);
+        define('MAILINGFROM', $this->MAILINGFROM);
+        define('MAILINGBOUNCE', $this->MAILINGBOUNCE);
+        define('APPROVALMAIL', $this->APPROVALMAIL);
 
-        define('SYSMAIL', $this -> SYSMAIL);
+        define('SYSMAIL', $this->SYSMAIL);
 
-        define('SMTP', $this -> SMTP);
-        define('SMTPPORT', $this -> SMTPPORT);
+        define('SMTP', $this->SMTP);
+        define('SMTPPORT', $this->SMTPPORT);
 
-        define('TRANSPORT', $this -> TRANSPORT);
-        define('GOOGLEMAPSAPIKEY', $this -> GOOGLEMAPSAPIKEY);
-        define('HEADERBAR', $this -> HEADERBAR);
-        define('ADDITIONALMODULES', $this -> ADDITIONALMODULES);
-        define('USEPREFIX', $this -> USEPREFIX);
-        define('USEHEADER', $this -> USEHEADER);
-        define('USEACTIONDIR', $this -> USEACTIONDIR);
-        define('LOCALIZABLE', $this -> LOCALIZABLE);
+        define('TRANSPORT', $this->TRANSPORT);
+        define('GOOGLEMAPSAPIKEY', $this->GOOGLEMAPSAPIKEY);
+        define('HEADERBAR', $this->HEADERBAR);
+        define('ADDITIONALMODULES', $this->ADDITIONALMODULES);
+        define('USEPREFIX', $this->USEPREFIX);
+        define('USEHEADER', $this->USEHEADER);
+        define('USEACTIONDIR', $this->USEACTIONDIR);
+        define('LOCALIZABLE', $this->LOCALIZABLE);
 
-        define('RTE_IMGURLWRAP', $this -> RTE_IMGURLWRAP);
-        define('RTE_IMGTAGWRAP', $this -> RTE_IMGTAGWRAP);
+        define('RTE_IMGURLWRAP', $this->RTE_IMGURLWRAP);
+        define('RTE_IMGTAGWRAP', $this->RTE_IMGTAGWRAP);
 
-        define('SHOWTEMPLATEERRORS', $this -> SHOWTEMPLATEERRORS);
+        define('SHOWTEMPLATEERRORS', $this->SHOWTEMPLATEERRORS);
 
-        define('ERROR_IMG', $this -> ERROR_IMG);
-        define('IMAGEMAGICK_PATH', $this -> IMAGEMAGICK_PATH);
-        define('IMAGE_MODES', serialize($this -> IMAGE_MODES));
+        define('ERROR_IMG', $this->ERROR_IMG);
+        define('IMAGEMAGICK_PATH', $this->IMAGEMAGICK_PATH);
+        define('IMAGE_MODES', serialize($this->IMAGE_MODES));
 
-        define('USEFTPFORFOLDERS', $this -> USEFTPFORFOLDERS);
-        define('FTPSERVER', $this -> FTPSERVER);
-        define('FTPUSER', $this -> FTPUSER);
-        define('FTPPASS', $this -> FTPPASS);
-        define('FTPBASEPATH', $this -> FTPBASEPATH);
-        define('GENERATESITEMAP', $this -> GENERATESITEMAP);
-        define('MAPTYPE', $this -> MAPTYPE);
-        define('BENCHMARK', $this -> BENCHMARK);
-        define('USETLD', $this -> USETLD);
-        define('DISABLEMAIL', $this -> DISABLEMAIL);
+        define('USEFTPFORFOLDERS', $this->USEFTPFORFOLDERS);
+        define('FTPSERVER', $this->FTPSERVER);
+        define('FTPUSER', $this->FTPUSER);
+        define('FTPPASS', $this->FTPPASS);
+        define('FTPBASEPATH', $this->FTPBASEPATH);
+        define('GENERATESITEMAP', $this->GENERATESITEMAP);
+        define('MAPTYPE', $this->MAPTYPE);
+        define('BENCHMARK', $this->BENCHMARK);
+        define('USETLD', $this->USETLD);
+        define('DISABLEMAIL', $this->DISABLEMAIL);
 
-        define('PHPTHUMBERRORIMAGE', $this -> PHPTHUMBERRORIMAGE);
-        define('SHOWDEPRECATION', $this -> SHOWDEPRECATION);
+        define('PHPTHUMBERRORIMAGE', $this->PHPTHUMBERRORIMAGE);
+        define('SHOWDEPRECATION', $this->SHOWDEPRECATION);
 
-        define('DISPLAYERRORS', $this -> DISPLAYERRORS);
+        define('DISPLAYERRORS', $this->DISPLAYERRORS);
 
 
-        define('CACHE_MODE',  self::CACHE_MODE_FILE);
+        define('CACHE_MODE', self::CACHE_MODE_FILE);
 
-        define('CACHEPREFIX', $this -> CACHEPREFIX);
-        define('SAFE_EXEC_ALLOWED', $this -> SAFE_EXEC_ALLOWED);
+        define('CACHEPREFIX', $this->CACHEPREFIX);
+        define('SAFE_EXEC_ALLOWED', $this->SAFE_EXEC_ALLOWED);
 
-        foreach($this -> CUSTOM as $key => $value) {
+        define('APP_NAMESPACE', $this->APP_NAMESPACE);
+
+        foreach ($this->CUSTOM as $key => $value) {
             define($key, $value);
         }
     }
@@ -268,10 +274,11 @@ abstract class Constants {
      * @since 1.2
      * @param array $vars
      */
-    private function _fixSlashes($vars) {
-        foreach($vars as $var) {
-            if(substr($this -> {$var}, -1) != '/') {
-                $this -> {$var} .= '/';
+    private function _fixSlashes($vars)
+    {
+        foreach ($vars as $var) {
+            if (substr($this->{$var}, -1) != '/') {
+                $this->{$var} .= '/';
             }
         }
     }

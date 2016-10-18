@@ -178,7 +178,7 @@ class FileCache extends Permissions  implements ICache  {
 			closedir($handle);
 		}
 
-		if(SMARTYAVAILABLE) {
+		if(defined('SMARTYAVAILABLE') && SMARTYAVAILABLE) {
 			require_once(BASEPATH . 'bright/externallibs/smarty/libs/Smarty.class.php');
 			try {
 				$s = new \Smarty();

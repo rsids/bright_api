@@ -36,15 +36,15 @@ class Mailing extends Permissions  {
     /**
      * Saves a mailing
      * @param OPage $mailing The mailing to save
-     * @return stdClass An object containing mailing, the just saved mailing and mailings, an array of all mailings
-     * @throws Exception
+     * @return \stdClass An object containing mailing, the just saved mailing and mailings, an array of all mailings
+     * @throws \Exception
      */
 	public function setMailing(OPage $mailing) {
 		if(!$this -> IS_AUTH) 
 			throw $this -> throwException(1001);	
 		$page = new Page();
 		$mailing = $page -> setPage($mailing, false);
-		$result = new stdClass();
+		$result = new \stdClass();
 		// Fetch mailing again, fixes #43
 		$result -> mailing = $page -> getPageById($mailing -> pageId, false, true);
 		$result -> mailings = $page -> getPages(1, null, true);
